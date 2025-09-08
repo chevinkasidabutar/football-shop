@@ -27,5 +27,5 @@ class ProductModelTest(TestCase):
 
 class HomeViewTest(TestCase):
     def test_home_returns_200(self):
-        resp = self.client.get("/")   # asumsi "/" diarahkan ke view utama
+        resp = self.client.get("/")
         self.assertEqual(resp.status_code, 200)
