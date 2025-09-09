@@ -6,7 +6,7 @@ class Product(models.Model):
     price = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.TextField()
     thumbnail = models.URLField()
-    category = models.CharField(max_length=200)  # fix: max_length
+    category = models.CharField(max_length=200)
     is_featured = models.BooleanField(default=False)
 
     stock = models.PositiveBigIntegerField(default=0)
