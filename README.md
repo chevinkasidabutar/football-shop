@@ -28,11 +28,10 @@ Link : https://chevinka-queen-footballshop.pbp.cs.ui.ac.id
             'python manage.py test'
     11. Setelah aplikasi berjalan dengan baik di lokal, saya men-deploy aplikasi ke PWS (Pacil Web Service)
     12. Selesai
-        
     
 #2 Bagan Django
-    Link: [https://drive.google.com/file/d/1BJAZjQ8Tiu6UcU5Sp_MxMqZ__Opp6tD-/view?usp=sharing]
-
+   <img width="1224" height="1540" alt="Bagan_Django" src="https://github.com/user-attachments/assets/d4ba1a31-dd25-4159-81da-55021c7acea9" />
+   
 #3 Peran settings.py
     menyimpan konfigurasi utama untuk aplikasi Django, dan berfungsi mengatur berbagai hal mulai dari pengaturan aplikasi, database, keamanan, hingga pengelolaan file statis dan media, supaya aplikasi bisa berjalan dengan baik, misal:
     - Untuk pengaturan umum aplikasi 
