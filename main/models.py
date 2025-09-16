@@ -19,9 +19,14 @@ class Product(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+    def increment_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
 
     @property
     def is_in_stock(self) -> bool:

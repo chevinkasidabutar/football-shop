@@ -5,7 +5,7 @@ Kelas : PBP-F
 NPM : 2406437376
 Link : https://chevinka-queen-footballshop.pbp.cs.ui.ac.id 
 
-
+TUGAS 2
 #1 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
     1. Membuat direktori baru yaitu direktori football-shop untuk dijadikan direktori untuk project django baru
     2. Tahap selanjutnya membuat virtual environment dengan command:
@@ -70,3 +70,59 @@ Link : https://chevinka-queen-footballshop.pbp.cs.ui.ac.id
 
 #6 Feedback terhadap asisten dosen
     Asisten dosen sangat membantu dalam memandu saya melalui setiap tahap tutorial 0-1. Selama proses, asdos selalu siap dan responsif dalam memberikan solusi terhadap permasalahan yang saya hadapi, baik selama tutorial maupun pengerjaan tugas. Respon yang diberikan sangat memudahkan saya untuk memahami materi dan membantu progres belajar saya. Terimakasih asdos 
+
+
+TUGAS 3
+#1 Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+    Data delivery merupakan proses pengiriman data dari satu komponen ke komponen lain dalam sebuah platform. Data delivery dibutuhkan karena:
+    1.Tanpa data delivery, platform tidak bisa berjalan karena komponen tidak dapat saling bertukar informasi
+    2.Menjamin data yang tersimpan di server sama dengan yang diterima oleh pengguna
+    3.Memberikan pengalaman pengguna yang lancar dengan pengiriman data yang cepat dan juga optimal
+    4.Melindungi data sensitif dengan enkripsi agar tidak mudah bocor saat dikirimkan
+    5.Mendukung pertumbuhan jumlah pengguna tanpa menurunkan performa sistem
+
+#2 Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+    JSON lebih populer dan lebih banyak dipakai dibanding XML untuk kebutuhan modern, khususnya di web dan API karena :
+    1. Format JSON lebih singkat, tidak perlu tag buka-tutup seperti XML
+    2. Struktur JSON mirip objek di JavaScript, jadi lebih gampang dipahami programmer
+    3. Ukuran kecil jadi lebih hemat bandwidth
+    Sehingga JSON lebih baik untuk kebutuhan modern karena parsing cepat, ringan, dan mudah dipakai. Namun, XML tetap relevan di kasus khusus yang butuh struktur dan validasi yang ketat
+
+#3 Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+    `is_valid()` dipakai untuk check apakah data yang dimasukan ke form sudah sesuai dengan aturan validasi yang sudah ditentukan
+    - Untuk cara kerja `is_valid()` itu sendiri :
+        - Jika semua input valid, `is_valid()` mengembalikan `True`.  
+        - Jika ada input yang tidak sesuai, `is_valid()` mengembalikan `False` dan form akan menampilkan error
+    - `is_valid()` dibutuhkan untuk :
+        1. memastikan data yang masuk sesuai format (misalnya email valid, angka dalam rentang yang benar, dll)
+        2. data yang tidak valid tidak akan diproses ke tahap selanjutnya
+        3. mencegah input aneh/berbahaya masuk ke sistem
+        4. memberikan feedback yang jelas jika ada kesalahan input
+
+#4 Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+    - `csrf_token` (Cross-Site Request Forgery token) adalah fitur keamanan yang mencegah serangan CSRF, yaitu serangan di mana penyerang memanfaatkan sesi login user untuk melakukan aksi tanpa izin user
+    - Jika form tidak menggunakan `csrf_token`, penyerang bisa membuat website palsu yang mengirim request ke aplikasi kita atas nama user yang sedang login, sehingga data bisa diubah atau aksi berbahaya dilakukan tanpa sepengetahuan user. Contoh: transfer uang, mengganti password, atau menghapus data tanpa sepengetahuan user
+    - Hal tersebut dapat dimanfaatkan oleh penyerang dengan cara
+    1. User login ke aplikasi asli 
+    2. Penyerang mengarahkan user ke halaman palsu
+    3. Halaman palsu tersebut mengirim request ke server aplikasi dengan identitas user
+    4. Server salah mengira request itu asli karena tidak ada validasi token
+
+#5 Step-by-step Implementasi Checklist Tugas
+    1. Membuat views di `main/views.py` untuk:
+     - Menampilkan daftar produk (halaman utama)
+     - Menampilkan detail produk
+     - Menambah produk (form)
+     - Menampilkan data produk dalam format XML, JSON, XML by ID, dan JSON by ID
+    2. Menambahkan URL pattern di `main/urls.py` untuk semua views di atas, lalu meng-include `main/urls.py` di `football_shop/urls.py`.
+    3. Membuat file HTML di `main/templates/` untuk halaman utama, form tambah produk, dan detail produk.
+       Menambahkan tombol "Add Product" dan "Read More" pada halaman utama.
+    4. Menjalankan server lokal, menguji semua fitur (tambah, lihat, detail, XML/JSON)
+    5. deploy aplikasi ke PWS.
+    6. Menulis README
+    7. Selesai
+
+
+
+
+
