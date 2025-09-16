@@ -109,19 +109,32 @@ TUGAS 3
     4. Server salah mengira request itu asli karena tidak ada validasi token
 
 #5 Step-by-step Implementasi Checklist Tugas
-    1. Membuat views di `main/views.py` untuk:
-     - Menampilkan daftar produk (halaman utama)
-     - Menampilkan detail produk
-     - Menambah produk (form)
-     - Menampilkan data produk dalam format XML, JSON, XML by ID, dan JSON by ID
-    2. Menambahkan URL pattern di `main/urls.py` untuk semua views di atas, lalu meng-include `main/urls.py` di `football_shop/urls.py`.
-    3. Membuat file HTML di `main/templates/` untuk halaman utama, form tambah produk, dan detail produk.
-       Menambahkan tombol "Add Product" dan "Read More" pada halaman utama.
-    4. Menjalankan server lokal, menguji semua fitur (tambah, lihat, detail, XML/JSON)
-    5. deploy aplikasi ke PWS.
+
+    1. Membuat Views
+     - Membuat berbagai fungsi di `main/views.py` sesuai checklist tugas:
+     - Fungsi untuk menampilkan daftar produk (halaman utama), mengambil semua data produk dari database dan mengirimkannya ke template
+     - Fungsi untuk menampilkan detail produk, mengambil data produk dan menampilkannya di halaman detail.
+     - Fungsi untuk menambah produk, menampilkan form dan memproses input user untuk menambah produk baru ke database
+     - Fungsi untuk menampilkan data produk dalam format XML dan JSON (baik seluruh produk maupun berdasarkan ID), menggunakan `HttpResponse` dengan content type yang sesuai dan serialisasi data
+
+    2. Menambahkan Routing URL
+     - Menambahkan URL pattern di `main/urls.py` untuk setiap views di atas, misal:
+        -untuk halaman utama (daftar produk)
+        -`/product/<id>/` untuk detail produk
+        - `/create-product/` untuk form tambah produk
+        - `/xml/`, `/json/`, `/xml/<id>/`, `/json/<id>/` untuk data produk dalam format XML/JSON
+     - Meng-include `main/urls.py` di `football_shop/urls.py` agar semua URL aplikasi main dikenali oleh Django project
+
+    3. -Membuat file HTML di `main/templates/` untuk:
+            - Halaman utama (menampilkan daftar produk, tombol Add Product, dan tombol Read More/Detail untuk setiap produk)
+            - Form tambah produk (menggunakan Django form)
+            - Halaman detail produk (menampilkan informasi lengkap produk yang dipilih)
+       - Memastikan setiap tombol dan link mengarah ke URL yang benar sesuai views dan routing
+
+    4. Menjalankan server lokal dengan `python manage.py runserver`
+    5. Melakukan deploy ke PWS, agar aplikasi bisa diakses secara online
     6. Menulis README
     7. Selesai
-
 
 
 
