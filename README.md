@@ -135,6 +135,19 @@ TUGAS 3
     5. Melakukan deploy ke PWS, agar aplikasi bisa diakses secara online
     6. Menulis README
     7. Selesai
+    
+ #6 Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
+    - Semua produk (JSON)
+        <img width="1275" height="841" alt="Screenshot 2025-09-17 at 01 34 14" src="https://github.com/user-attachments/assets/f1724cf1-79b7-44ff-aaf5-48b128d50287" />
+    - Produk by ID (JSON)
+        <img width="1269" height="843" alt="Screenshot 2025-09-17 at 01 34 49" src="https://github.com/user-attachments/assets/cea03180-57ce-469a-89d8-085ff8ca1002" /> 
+    - Semua produk (XML)
+        <img width="1262" height="837" alt="Screenshot 2025-09-17 at 01 35 49" src="https://github.com/user-attachments/assets/4e90f63c-3c7a-4936-aa0f-62fdcc437131" />
+    - Produk by ID (XML)
+        <img width="1267" height="841" alt="Screenshot 2025-09-17 at 01 36 16" src="https://github.com/user-attachments/assets/2c824764-5872-4141-a3c8-b3a8c86c3f09" />
+
+
+
 
 
 
