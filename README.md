@@ -109,7 +109,6 @@ TUGAS 3
     4. Server salah mengira request itu asli karena tidak ada validasi token
 
 #5 Step-by-step Implementasi Checklist Tugas
-
     1. Membuat Views
      - Membuat berbagai fungsi di `main/views.py` sesuai checklist tugas:
      - Fungsi untuk menampilkan daftar produk (halaman utama), mengambil semua data produk dari database dan mengirimkannya ke template
