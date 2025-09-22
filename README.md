@@ -146,6 +146,7 @@ TUGAS 3
         <img width="1267" height="841" alt="Screenshot 2025-09-17 at 01 36 16" src="https://github.com/user-attachments/assets/2c824764-5872-4141-a3c8-b3a8c86c3f09" />
 
 TUGAS 4
+    
     #1 Apa itu `Django AuthenticationForm`? Jelaskan juga kelebihan dan kekurangannya.
     `Django AuthenticationForm` adalah form bawaan langsung dari jango yang menangani aktifitas login oleh user yang dimana form ini akan menyediakan field username, password dan memvalidasi data secara langsung.
         - Kelebihan : 
