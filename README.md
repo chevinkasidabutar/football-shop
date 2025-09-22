@@ -145,9 +145,85 @@ TUGAS 3
     - Produk by ID (XML)
         <img width="1267" height="841" alt="Screenshot 2025-09-17 at 01 36 16" src="https://github.com/user-attachments/assets/2c824764-5872-4141-a3c8-b3a8c86c3f09" />
 
+TUGAS 4
+    #1 Apa itu `Django AuthenticationForm`? Jelaskan juga kelebihan dan kekurangannya.
+    `Django AuthenticationForm` adalah form bawaan langsung dari jango yang menangani aktifitas login oleh user yang dimana form ini akan menyediakan field username, password dan memvalidasi data secara langsung.
+        - Kelebihan : 
+            1. Tidak perlu membuat form secara manual
+            2. Mendukung error handling
+            3. Sudah terintegrasi dengan sistem autentikasi Django
+        - Kekuranga :
+            1. Jika ingin menambahkan field, kurang fleksibel
+            2. Tampilan utama nya simple
+    
+    #2 Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+        - Autentikasi (Authentication) memverifikasi siapa user (contoh: login dengan username & password)
+        - Otorisasi (Authorization) → memverifikasi apa yang boleh dilakukan user setelah login (contoh: hanya admin boleh hapus produk)
+        
+        Cara implementasi :
+        - Autentikasi di-handle dengan authenticate(), login(), logout()
+        - Otorisasi di-handle dengan permission (`user.is_authenticated`
+       ` @login_required`)
+    
+    #3 Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+        - Session = disimpan di server, ID disimpan di cookie browser
+            Kelebihan: 
+            - Lebih aman karena data tidak langsung ada di browser
+            - Bisa simpan data kompleks
+
+            Kekurangan:
+            - Membebani server karena butuh storage di database/cache
+            - Tidak bertahan lama kalau session expired
+        
+        - Cookies = disimpan langsung di browser user
+            Kelebihan :
+            - Ringan, cepat diakses, dan cocok untuk preferensi user
+            - Bertahan lama
+
+            Kekurangan :
+            - Lebih rentan dimanipulasi user
+            - Tidak cocok simpan data sensitif
+        
+    #4 Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+        - Cookies tidak sepenuhnya aman secara default karena berisiko terkena XSS, CSRF, atau pencurian lewat jaringan jika tidak dilindungi
+        - Django menanganinya dengan:
+            Middleware CSRF + {% csrf_token %}
+            Opsi HttpOnly, Secure, dan SameSite pada session cookie.
+            Cookie ditandatangani agar tidak bisa dimodifikasi sembarangan
+        Dengan konfigurasi tepat (misalnya aktifkan HTTPS + SESSION_COOKIE_SECURE = True), Django bisa membuat penggunaan cookies jauh lebih aman
+
+    #5 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+    1. Membuat view register, login_user, dan logout_user di views.py.
+    2. Gunakan UserCreationForm untuk registrasi dan AuthenticationForm untuk login
+    3. Saat login berhasil, simpan last_login ke cookies
+    4. Tambahkan path baru di urls.py untuk register/, login/, dan logout/ dengan nama URL yang konsisten
+    5. Buat template register.html dan login.html agar user bisa melakukan autentikasi lewat form
+    6. Menjalankan server dan membuat dua akun user dan tiga dummy data untuk masing-masing user
+    7. Hasilnya ada total 6 produk dummy yang bisa ditampilkan di halaman utama
+    8. Di models.py, tambahkan field user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    9. Saat membuat produk (create_product), saya menambahkan:
+        `product_entry = form.save(commit=False)`
+        `product_entry.user = request.user`
+       ` product_entry.save()`
+    sehingga setiap produk selalu memiliki owner sesuai user yang login
+    10. Pada views.show_main, kita kirim context tambahan: request.user.username dan request.COOKIES['last_login']
+    11. Di template main.html, tampilkan username dan waktu last_login agar pengguna bisa melihat info dirinya
+    12. Run server
+    13. Push ke github
+    14. Push ke pws
+    15. Selesai
+
+        
 
 
 
+       
+
+
+
+
+        
 
 
 
