@@ -1,11 +1,13 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.contrib.auth.models import User
 
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=300)
     price = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.TextField()
-    thumbnail = models.URLField()
+    thumbnail = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=200)
     is_featured = models.BooleanField(default=False)
 

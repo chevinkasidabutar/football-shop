@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    margin: 0;
+    background: #f4f4f9;
+  }
+
+  .register {
+    background: rgb(251, 246, 248);
+    padding: 4rem;
+    border-radius:20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 400px;
+  }
+
+  .register h1 {
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .register table {
+    margin: 0 auto; 
+  }
+
+  .btn.register_btn {
+    width: 100%;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #f17fbe;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .btn.register_btn:hover {
+    background-color: #ce629e;
+  }
+
+  .register a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  .register a:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="register">
+  <h1>Create Your Account</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+      <tr>
+        <td></td>
+        <td><input class="btn register_btn" type="submit" name="submit" value="Daftar" /></td>
+      </tr>
+    </table>
+  </form>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <p>Already have an account? <a href="{% url 'main:login_user' %}">Login here</a></p>
+</div>
+{% endblock content %}
