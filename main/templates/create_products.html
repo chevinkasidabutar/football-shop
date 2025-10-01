@@ -1,18 +1,63 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Create Product - BolaBale Store</title>
+{% endblock meta %}
+
 {% block content %}
-<h1>Add Product</h1>
+  {% include 'navbar.html' %}
 
-<form method="POST">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-    <tr>
-      <td></td>
-      <td>
-        <input type="submit" value="Add PRODUCT" />
-      </td>
-    </tr>
-  </table>
-</form>
+  <div class="bg-floating-blobs w-full min-h-screen pt-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="mb-6">
+        <a href="{% url 'main:show_main' %}" class="link-brand font-semibold">← Back to Shop</a>
+      </div>
 
-{% endblock %}
+      <div class="glass rounded-2xl border border-purple-100 p-6 sm:p-8 form-style shadow-card">
+        <div class="mb-8">
+          <h1 class="text-2xl font-bold text-gray-900 mb-2">Create New Product</h1>
+          <p class="text-gray-600">Add your football merchandise to the catalog</p>
+        </div>
+
+        {% if form.non_field_errors %}
+          <div class="mb-6 rounded-lg border border-red-200 bg-red-50 text-red-700 p-4">
+            {% for e in form.non_field_errors %}<div>{{ e }}</div>{% endfor %}
+          </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+          {% csrf_token %}
+
+          {# — Jika form sudah lengkap dari Django Form, render per-field agar stylenya masuk — #}
+          {% for field in form %}
+            <div>
+              <label for="{{ field.id_for_label }}" class="block text-sm font-semibold text-gray-800 mb-2">
+                {{ field.label }}
+              </label>
+              {{ field }}
+              {% if field.help_text %}
+                <p class="mt-1 text-sm text-gray-500">{{ field.help_text }}</p>
+              {% endif %}
+              {% for error in field.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endfor %}
+
+          <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-purple-100">
+            <a href="{% url 'main:show_main' %}"
+               class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 text-center">
+              Cancel
+            </a>
+
+            <button type="submit"
+                    class="order-1 sm:order-2 flex-1 px-6 py-3 rounded-lg btn-brand font-semibold">
+              Publish Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -216,15 +216,54 @@ TUGAS 4
     15. Selesai
 
         
+TUGAS 5
 
+    #1 Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+        1. Urutan Prioritas Pengambilan CSS Selector (Spesifisitas)
+        Urutan prioritas pengambilan (specificity) CSS selector, dari yang tertinggi ke yang terendah, adalah:
+        Inline Styles (Skor 1000): Ditulis langsung di atribut style tag HTML.
+        ID Selectors (Skor 100): Menggunakan # (misalnya, #navbar).
+        Class Selectors, Attribute Selectors, Pseudo-classes (Skor 10): Menggunakan . (misalnya, .btn), [] (misalnya, [type="text"]), atau :hover.
+        Element (Type) Selectors, Pseudo-elements (Skor 1): Menggunakan nama tag (misalnya, p, div).
+        Universal Selector (Skor 0): Menggunakan *.
 
+    #2 Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
 
-       
+        Responsive Design adalah praktik pengembangan web agar layout dan tampilan halaman dapat beradaptasi optimal di berbagai ukuran layar (desktop, tablet, mobile).
+        Pentingnya:
+        Meningkatkan UX (User Experience): Pengguna mobile dapat berinteraksi dengan mudah tanpa perlu zoom atau scroll horizontal.
+        SEO (Search Engine Optimization): Mesin pencari seperti Google memprioritaskan situs yang mobile-friendly (konsep mobile-first indexing).
+        Sudah Responsive = YouTube / Instagram Web , Layout berubah dari banyak kolom (desktop) menjadi satu kolom vertikal panjang (mobile)
+        Belum Responsive = Situs Instansi Pemerintah Lama, Halaman tetap fixed-width (lebar tetap); diakses di mobile harus di-zoom karena tulisan terlalu kecil. 
 
+    #3 Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+    Ketiganya adalah komponen dari CSS Box Model:
+        Padding (Bantalan): Ruang kosong di dalam elemen, antara konten dan border.
+        Implementasi: padding: 10px; (memberi jarak internal).
+        Border (Batas): Garis yang mengelilingi padding dan konten.
+        Implementasi: border: 1px solid black; (memberi batas visual).
+        Margin (Batas Luar): Ruang kosong di luar border, digunakan untuk memberi jarak antar elemen.
+        Implementasi: margin: 20px; (memberi jarak eksternal)
 
+    #4 Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+    Flex Box (Flexible Box Layout) dan Grid Layout (CSS Grid) adalah dua sistem layout dua dimensi utama di CSS, namun mereka bekerja pada dimensi yang berbeda.
 
+        Flex Box bekerja dalam satu dimensi, mengatur item baik di sepanjang baris atau di sepanjang kolom. Kegunaan utamanya adalah untuk mengatur perataan (alignment), urutan, dan distribusi ruang di dalam komponen aplikasi yang kecil. Contohnya adalah membuat semua tombol dalam sebuah card rata kanan atau mengatur item navigasi dalam satu baris.
+        Grid Layout bekerja dalam dua dimensi secara simultan, memungkinkan Anda mendefinisikan baris dan kolom secara eksplisit. Kegunaan utamanya adalah untuk mendefinisikan struktur layout halaman secara keseluruhan, seperti membagi halaman menjadi area untuk header, sidebar, dan konten utama.
+        Secara umum, gunakan Grid untuk macro-layout (tata letak halaman besar) dan Flexbox untuk micro-layout (mengatur item di dalam komponen).
 
-        
+    #5 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
-
-
+        1. Saya memilih Tailwind CSS untuk mempercantik tampilan aplikasi.
+        2. Saya menambahkan model Product dengan field lengkap termasuk owner dan image.
+        3. Saya membuat ProductForm untuk menangani input produk.
+        4. Saya menambahkan URL patterns untuk CRUD produk serta autentikasi.
+        5. Saya membuat views CRUD dengan pengecekan kepemilikan produk.
+        6. Saya membuat base layout dengan navbar responsif untuk mobile dan desktop.
+        7. Saya menampilkan daftar produk dalam bentuk card dengan tombol edit/hapus serta empty state.
+        8. Saya membuat halaman tambah dan edit produk dengan form kustom.
+        9. Saya menampilkan detail produk dalam layout dua kolom dengan tombol aksi.
+        10. Saya menambahkan halaman konfirmasi hapus produk sebelum menghapus.
+        11. Saya membuat halaman login dan register dengan desain sederhana namun menarik.
+        12. Saya memastikan keamanan, responsivitas, dan konsistensi desain aplikasi.
+        13. Saya menjalankan server dan menguji seluruh fitur sesuai checklist.

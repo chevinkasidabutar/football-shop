@@ -1,29 +1,88 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>{{ product.title }} - Football Product</title>
+{% endblock meta %}
+
 {% block content %}
+{% include 'navbar.html' %}
 
-<p><a href="{% url 'main:show_main' %}"><button>← Back to Product List</button></a></p>
+<div class="min-h-screen pt-20 bg-floating-blobs">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-<h1>{{ product.name }}</h1>
-<p><b>{{ product.category }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %} | <i>{{ product.created_at|date:"d M Y, H:i" }}</i> 
-    | Views: {{ product.views }}</p>
+    <div class="mb-6">
+      <a href="{% url 'main:show_main' %}" class="inline-flex items-center gap-2 link-brand font-semibold">
+        ← Back to products
+      </a>
+    </div>
 
-<p><b>Price:</b> Rp{{ product.price }}</p>
-<p><b>Stock:</b> {{ product.stock }}</p>
-<p><b>Color:</b> {{ product.color }}</p>
-<p><b>Size:</b> {{ product.size }}</p>
+    <article class="glass border border-purple-100 rounded-2xl overflow-hidden shadow-card">
+      <div class="p-6 sm:p-8">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          {% if product.get_category_display %}
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-[color:var(--brand)] text-white">
+            {{ product.get_category_display }}
+          </span>
+          {% endif %}
+          {% if product.is_featured %}
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-yellow-100 text-yellow-800">Featured</span>
+          {% endif %}
+          {% if product.is_product_hot %}
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-red-100 text-red-700">Hot</span>
+          {% endif %}
+        </div>
 
-{% if product.thumbnail %}
-<img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300">
-<br /><br />
-{% endif %}
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-3">
+          {{ product.title }}
+        </h1>
 
-<p>{{ product.description }}</p>
-{% if product.user %}
-    <p>Author: {{ product.user.username }}</p>
-{% else %}
-    <p>Author: Anonymous</p>
-{% endif %}
+        <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
+          {% if product.created_at %}
+          <time datetime="{{ product.created_at|date:'c' }}">{{ product.created_at|date:"M j, Y g:i A" }}</time>
+          {% endif %}
+          <span>{{ product.product_views }} views</span>
+        </div>
+      </div>
 
+      {% if product.thumbnail %}
+        <div class="px-6 sm:px-8">
+          <img src="{{ product.thumbnail }}" alt="{{ product.title }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl">
+        </div>
+      {% else %}
+        <div class="px-6 sm:px-8">
+          <img src="{% static 'image/no-name.JPG' %}" alt="No image" class="w-full h-64 sm:h-80 lg:h-96 object-contain rounded-xl bg-[color:var(--brand-50)]">
+        </div>
+      {% endif %}
 
+      <div class="p-6 sm:p-8">
+        <div class="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+          {{ product.content|default:"No description provided." }}
+        </div>
+      </div>
+
+      <div class="border-t border-purple-100 p-6 sm:p-8 bg-white/85">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="font-semibold text-gray-900">
+              {% if product.user %}Author: {{ product.user.username }}{% else %}Author: Anonymous{% endif %}
+            </div>
+            <p class="text-sm text-gray-500">Product detail</p>
+          </div>
+
+          {% if user.is_authenticated and product.user == user %}
+          <div class="flex items-center gap-2">
+            <a href="{% url 'main:edit_product' product.id %}" class="px-4 py-2 rounded-lg btn-brand font-semibold">Edit</a>
+            <form method="post" action="{% url 'main:delete_product' product.id %}" onsubmit="return confirm('Hapus produk ini?')">
+              {% csrf_token %}
+              <button type="submit" class="px-4 py-2 rounded-lg border border-red-200 text-red-600 bg-white hover:bg-red-50 font-semibold">Delete</button>
+            </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
 {% endblock content %}
