@@ -12,8 +12,6 @@
 
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-2">
-
-        <!-- HOME -->
         <a id="nav-home-link"
            href="{% if is_home %}#home{% else %}{% url 'main:show_main' %}{% endif %}"
            class="px-3.5 py-2 rounded-full font-medium
@@ -22,7 +20,6 @@
           Home
         </a>
 
-        <!-- ALL -->
         <a id="nav-all-link"
            href="{% if is_home %}#all{% else %}?filter=all{% endif %}"
            class="px-3.5 py-2 rounded-full font-medium
@@ -32,7 +29,6 @@
           All Products
         </a>
 
-        <!-- MY PRODUCTS -->
         <a href="?filter=my"
            class="px-3.5 py-2 rounded-full font-medium
                   {% if filter_type == 'my' %}
@@ -43,33 +39,11 @@
           My Products
         </a>
 
-        <!-- Category dropdown -->
-        <div class="relative">
-          <button id="category-btn"
-                  class="px-3.5 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-purple-50 flex items-center gap-1">
-            Category
-            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
-          </button>
-          <div id="category-menu"
-               class="hidden absolute left-0 mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-lg p-2">
-            {% if categories %}
-              {% for cat in categories %}
-                <a href="?category={{ cat }}"
-                   class="block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-purple-50">
-                  {{ cat }}
-                </a>
-              {% endfor %}
-            {% else %}
-              <div class="px-3 py-2 text-sm text-gray-400">No categories yet</div>
-            {% endif %}
-          </div>
-        </div>
-
         {% if user.is_authenticated %}
-          <a href="{% url 'main:create_product' %}"
+          <button id="btnOpenCreate"
              class="ml-1 px-3.5 py-2 rounded-full font-semibold bg-purple-500/90 text-white hover:bg-purple-600 shadow-sm">
             + Create Product
-          </a>
+          </button>
         {% endif %}
       </div>
 
@@ -78,9 +52,9 @@
         {% if user.is_authenticated %}
           <div class="text-right leading-tight">
             <p class="text-sm font-semibold text-gray-900">{{ user.username }}</p>
-            <p class="text-xs text-gray-500">{{ npm }} - {{ class }}</p>
+            <p class="text-xs text-gray-500">{{ npm }} - {{ kelas }}</p>
           </div>
-          <a href="{% url 'main:logout_user' %}" class="text-rose-500 font-medium hover:underline">Logout</a>
+          <a href="{% url 'main:logout_user' %}" id="btnLogout" class="text-rose-500 font-medium hover:underline">Logout</a>
         {% else %}
           <a href="{% url 'main:login_user' %}"
              class="px-3.5 py-2 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 shadow-sm">
@@ -105,27 +79,9 @@
       <a href="{% if is_home %}#home{% else %}{% url 'main:show_main' %}{% endif %}" class="block px-2 py-2 rounded-lg font-medium text-gray-700 hover:bg-purple-50">Home</a>
       <a href="{% if is_home %}#all{% else %}?filter=all{% endif %}"  class="block px-2 py-2 rounded-lg font-medium text-gray-700 hover:bg-purple-50">All Products</a>
       <a href="?filter=my" class="block px-2 py-2 rounded-lg font-medium text-gray-700 hover:bg-purple-50">My Products</a>
-
-      <!-- Mobile Category accordion -->
-      <button id="m-cat-toggle"
-              class="w-full text-left px-2 py-2 rounded-lg font-medium text-gray-700 hover:bg-purple-50 flex items-center justify-between">
-        Category
-        <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
-      </button>
-      <div id="m-cat-panel" class="hidden pl-2 space-y-1">
-        {% for cat in categories %}
-          <a href="?category={{ cat }}" class="block px-2 py-2 rounded-md text-sm text-gray-700 hover:bg-purple-50">
-            {{ cat }}
-          </a>
-        {% endfor %}
-        {% if not categories %}
-          <div class="px-2 py-2 text-sm text-gray-400">No categories yet</div>
-        {% endif %}
-      </div>
-
       {% if user.is_authenticated %}
-        <a href="{% url 'main:create_product' %}" class="block px-2 py-2 rounded-lg font-medium text-purple-600 hover:bg-purple-50">+ Create Product</a>
-        <a href="{% url 'main:logout_user' %}" class="block px-2 py-2 rounded-lg font-medium text-rose-500 hover:bg-rose-50">Logout</a>
+        <button id="btnOpenCreate" class="block w-full text-left px-2 py-2 rounded-lg font-medium text-purple-600 hover:bg-purple-50">+ Create Product</button>
+        <a href="{% url 'main:logout_user' %}" id="btnLogoutMobile" class="block px-2 py-2 rounded-lg font-medium text-rose-500 hover:bg-rose-50">Logout</a>
       {% else %}
         <a href="{% url 'main:login_user' %}" class="block px-2 py-2 rounded-lg font-medium text-purple-600 hover:bg-purple-50">Login</a>
       {% endif %}
@@ -134,39 +90,31 @@
 </nav>
 
 <script>
-  // Hamburger
+  // hamburger
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
 
-  // Desktop category dropdown
-  const catBtn = document.getElementById('category-btn');
-  const catMenu = document.getElementById('category-menu');
-  if (catBtn && catMenu) {
-    catBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      catMenu.classList.toggle('hidden');
-    });
-    document.addEventListener('click', () => catMenu.classList.add('hidden'));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') catMenu.classList.add('hidden');
+  // Logout AJAX
+  function getCookie(name){const v=`; ${document.cookie}`.split(`; ${name}=`);if(v.length===2)return v.pop().split(';').shift();}
+  const CSRF_TOKEN = getCookie('csrftoken');
+  function hookLogout(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      try{
+        const res = await fetch("{% url 'main:logout_ajax' %}", { method:'POST', headers:{'X-CSRFToken': CSRF_TOKEN} });
+        const data = await res.json();
+        if(!res.ok || !data.success) throw new Error('Logout failed');
+        showToast('Logged out', 'Sampai jumpa!', 'success', 1200);
+        setTimeout(()=>{ window.location.href = data.redirect || "{% url 'main:login_user' %}"; }, 600);
+      }catch(err){
+        console.error(err);
+        showToast('Gagal logout', '', 'error', 2000);
+      }
     });
   }
-
-  // Mobile category accordion
-  const mToggle = document.getElementById('m-cat-toggle');
-  const mPanel  = document.getElementById('m-cat-panel');
-  mToggle?.addEventListener('click', () => mPanel?.classList.toggle('hidden'));
-
-  // Scroll: brand ke tengah + glow
-  const brand = document.getElementById('brand-logo');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 56) {
-      brand.classList.add('mx-auto','text-center','w-full');
-      brand.querySelector('a')?.classList.add('drop-shadow-[0_10px_28px_rgba(168,85,247,0.55)]');
-    } else {
-      brand.classList.remove('mx-auto','text-center','w-full');
-      brand.querySelector('a')?.classList.remove('drop-shadow-[0_10px_28px_rgba(168,85,247,0.55)]');
-    }
-  }, { passive: true });
+  hookLogout('btnLogout');
+  hookLogout('btnLogoutMobile');
 </script>

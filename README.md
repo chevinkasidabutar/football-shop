@@ -267,3 +267,53 @@ TUGAS 5
         11. Saya membuat halaman login dan register dengan desain sederhana namun menarik.
         12. Saya memastikan keamanan, responsivitas, dan konsistensi desain aplikasi.
         13. Saya menjalankan server dan menguji seluruh fitur sesuai checklist.
+
+TUGAS 6
+
+    #1 Perbedaan Synchronous request vs Asynchronous request
+        Synchronous (full page)
+            - Browser kirim request ➜ server render HTML penuh ➜ browser reload seluruh halaman.
+            - Interaksi berikutnya selalu memuat ulang halaman.
+            - Sederhana, SEO-friendly, tapi terasa lambat dan boros bandwidth.
+
+        Asynchronous (AJAX / fetch/XHR)
+            - JS di halaman mengirim request di background ➜ server balas data (biasanya JSON) ➜ JS update sebagian DOM tanpa reload.
+            - Lebih responsif, hemat data, UX halus; tapi butuh penanganan error/history/aksesibilitas di sisi frontend
+
+    #2 Cara kerja AJAX di Django (alur request–response)
+        - User klik tombol/form ➜ JS menjalankan fetch('/ajax/endpoint/', {...}).
+        - Django URLconf mengarahkan ke view AJAX (contoh: /ajax/product/create/)
+        - View Django memproses (validasi, DB, auth) ➜ balas JsonResponse({...}).
+        - JS menerima JSON ➜ update DOM (grid, modal, toast) tanpa reload.
+    
+    # 3 Keuntungan AJAX dibanding render biasa di Django
+        - UX lebih cepat & mulus: hanya bagian yang berubah yang di-update (mis. grid produk).
+        - Hemat bandwidth: kirim/terima JSON kecil, bukan HTML penuh.
+        - Interaktif: modal, toast, inline validation, infinite scroll, dsb.
+        - Arsitektur rapi: backend fokus data (JSON), frontend fokus tampilan.
+        - Komposabilitas: endpoint yang sama bisa dipakai mobile/web/SPA
+
+    #4 Keamanan AJAX untuk Login & Register di Django
+        Server (Django)
+            - Gunakan POST + CSRF:
+            - Aktifkan middleware CSRF (default).
+            - Kirim header X-CSRFToken dari JS (baca cookie csrftoken).
+            - Jangan pakai @csrf_exempt pada auth.
+            - Validasi di server: gunakan AuthenticationForm/UserCreationForm atau validasi manual + authenticate().
+            - Batasi metode & throttle: @require_POST, pertimbangkan rate limiting (mis. django-ratelimit) untuk brute force.
+            - HTTPS wajib di lingkungan real: set SESSION_COOKIE_SECURE=True, CSRF_COOKIE_SECURE=True.
+            - Cookie sesi aman: SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE='Lax' (default Django cukup aman untuk form POST).
+            - Jangan bocorkan detail: balas error generik untuk kredensial salah; jangan kirim stacktrace ke client.
+            - CORS: kalau domain terpisah, atur CORS/CSRF_TRUSTED_ORIGINS dengan tepat—jangan wildcard sembarangan.
+
+        Client (JS/HTML)
+            - Jangan kirim password via GET atau URL. Selalu POST.
+            - Sanitasi output: ketika menampilkan data user, pakai textContent, hindari innerHTML dari input pengguna untuk cegah XSS.
+            - Tangani redirect manual: fetch tidak auto-navigasi; gunakan window.location jika perlu setelah sukses.
+    
+    #5 Dampak AJAX pada User Experience (UX)
+        - Responsif & cepat: aksi terasa instan (create/edit/delete muncul di grid seketika).
+        - Feedback jelas: loading state, error state, empty state, dan toast membuat alur terasa meyakinkan.
+        - anpa context loss: modal tidak menutup halaman; user tidak kehilangan posisi scroll.
+        - Validasi real-time: tampilkan pesan form saat user mengetik/kirim.
+        - Aksesibilitas (penting): kelola focus saat modal terbuka/ditutup, pakai atribut ARIA, dan umumkan error/sukses ke pembaca layar.
